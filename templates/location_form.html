@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>{{ action }} Location</h3>
+<form method="post">
+  <div class="mb-3">
+    <label class="form-label">Location ID</label>
+    <input class="form-control" name="location_id" {% if location %} value="{{ location.location_id }}" readonly {% endif %}>
+    <div class="form-text">Short unique id (eg: L001)</div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Name</label>
+    <input class="form-control" name="name" {% if location %} value="{{ location.name }}" {% endif %}>
+  </div>
+  <button class="btn btn-primary">{{ action }}</button>
+  <a class="btn btn-secondary" href="{{ url_for('locations') }}">Cancel</a>
+</form>
+{% endblock %}

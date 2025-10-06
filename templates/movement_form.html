@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>{{ action }} Movement</h3>
+<form method="post">
+  <div class="mb-3">
+    <label class="form-label">Movement ID</label>
+    <input class="form-control" name="movement_id" {% if movement %} value="{{ movement.movement_id }}" readonly {% endif %}>
+    <div class="form-text">Short unique id (eg: M001)</div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Product</label>
+    <select class="form-select" name="product_id">
+      {% for p in products %}
+      <option value="{{ p.product_id }}">{{ p.name }} ({{ p.product_id }})</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="mb-3 row">
+    <div class="col">
+      <label class="form-label">From (leave blank if incoming)</label>
+      <select class="form-select" name="from_location">
+        <option value="">-- none --</option>
+        {% for l in locations %}
+        <option value="{{ l.location_id }}">{{ l.name }} ({{ l.location_id }})</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col">
+      <label class="form-label">To (leave blank if outgoing)</label>
+      <select class="form-select" name="to_location">
+        <option value="">-- none --</option>
+        {% for l in locations %}
+        <option value="{{ l.location_id }}">{{ l.name }} ({{ l.location_id }})</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Quantity</label>
+    <input class="form-control" name="qty" type="number" min="1" value="1">
+  </div>
+  <button class="btn btn-primary">{{ action }}</button>
+  <a class="btn btn-secondary" href="{{ url_for('movements') }}">Cancel</a>
+</form>
+{% endblock %}
